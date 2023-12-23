@@ -6,6 +6,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --primary: #bf0603;
+  --secondry: #ff0a54;
+  --icons: #f26a8d;
+
 }
 
 @media (prefers-color-scheme: dark) {
