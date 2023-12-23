@@ -9,7 +9,8 @@ export async function onSignup(
   onCaptchVerify,
   setSignupLoading,
   setOtpModel,
-  setOpen
+  setOpen,
+  ph
 ) {
   setLoading(true);
   onCaptchVerify();
@@ -17,8 +18,8 @@ export async function onSignup(
 
   const appVerifier = window.recaptchaVerifier;
 
-  const ph = localStorage.getItem("contact");
-  const formatPh = "+91" + ph;
+  
+  const formatPh = "+" + ph;
   console.log("pghone", formatPh);
 
   signInWithPhoneNumber(auth, formatPh, appVerifier)
