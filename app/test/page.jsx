@@ -1,8 +1,8 @@
-// import React from "react";
-// import Firebase from "../components/PhoneNo";
+import React from "react";
+import Firebase from "../components/PhoneNo";
 
-// const page = () => {
-//   return <Firebase />;
-// };
+const page = () => {
+  return <Firebase />;
+};
 
-// export default page;
+export default page;
