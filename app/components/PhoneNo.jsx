@@ -67,6 +67,7 @@ const Firebase = () => {
 
   function onOTPVerify() {
     setLoading(true);
+    console.log("cnf", window.confirmationResult);
     window.confirmationResult
       .confirm(otp)
       .then(async (res) => {

@@ -9,30 +9,38 @@ import toast from "react-hot-toast";
 
 const OtpContainer = ({ setOpen, loading, setLoading }) => {
   const [otp, setOtp] = useState(null);
-  const [user, setUser] = useState(null);
 
   function onOTPVerify() {
     setLoading(true);
+
+    if (!window.confirmationResult) {
+      // Log an error or handle the absence of confirmationResult
+      console.log("Confirmation result not available");
+      setLoading(false);
+      return;
+    }
+
     window.confirmationResult
       .confirm(otp)
-      .then(async (res) => {
+      .then((res) => {
         console.log(res);
-        // setUser(res.user);
         setLoading(false);
-        setOpen(false)
-        toast.success("signup successful")
+        setOpen(false);
+        console.log("Verify success");
+        toast.success("Signup successful");
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false);
+        // setLoading(false);
+        // Log the error or handle the error
+        toast.error("Verification failed");
       });
   }
-  const phone = localStorage.getItem("contact");
+  const phone = "";
 
   return (
     <div className="flex flex-col justify-center items-center h-full text-start">
       <form
-        method="POST"
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
         <div className="flex justify-between items-center text-center mb-6">

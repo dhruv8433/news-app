@@ -42,7 +42,14 @@ const SignupForm = ({ open, setOpen }) => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    onSignup(setLoading, onCaptchVerify, setSignupLoading, setOtpModel, setOpen);
+    onSignup(
+      setLoading,
+      onCaptchVerify,
+      setSignupLoading,
+      setOtpModel,
+      setOpen,
+      ph
+    );
     // try {
     //   const response = await AddUser(userData);
     //   console.log(response);
