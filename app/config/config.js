@@ -1,0 +1,1 @@
+export const api_endpoint = `https://newsapi.org/v2/everything?q=tesla&from=2023-11-23&sortBy=publishedAt&apiKey=b1eff6491ec94e23b32d5fd519fa0372`
