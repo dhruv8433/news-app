@@ -28,7 +28,7 @@ const NavBar = () => {
               Live news
             </Link>
             <Button
-              variant="outlined"
+              variant="contained"
               onClick={() => setOpen(true)}
               size="small"
               className="text-white"
