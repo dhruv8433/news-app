@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import '@/app/style/style.css'
 import { Toaster } from "react-hot-toast";
+require("dotenv").config();
 
 const inter = Inter({ subsets: ["latin"] });
 
