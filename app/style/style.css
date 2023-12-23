@@ -1,0 +1,37 @@
+.opt-container > input {
+  border: 1px solid;
+  margin-block: 10px;
+}
+
+.custom-icon {
+  color: var(--icons);
+}
+
+.primary-bg {
+  background-color: var(--primary);
+}
+
+.secondry-bg {
+  background-color: var(--secondry);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondry);
+}
+
+.backdrop {
+  margin-left: 0;
+}
+
+.react-tel-input .form-control {
+  padding-left: 2px;
+  margin-left: 50px;
+}
+
+.react-tel-input .flag-dropdown {
+  border-radius: 5px;
+}
