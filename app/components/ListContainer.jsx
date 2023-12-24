@@ -36,7 +36,7 @@ const ListCategoryContainer = () => {
       >
         <div className="flex">
           {categorys.map((response) => (
-            <Link key={response} href={`/news/${response.toLowerCase()}`}>
+            <Link key={response} href={`/query/${response.toLowerCase()}`}>
               <h1
                 className="border border-black rounded mx-3 px-2 py-1 hover:bg-red-600 hover:text-white cursor-pointer"
                 onClick={() => getParticularNews(response)}
