@@ -2,13 +2,17 @@
 
 import React, { useState } from "react";
 import Swiper from "./components/Swiper";
-import GridNewsContainer from "./components/GridNewsContainer";
+import PopularNews from "./components/PopularNews";
+import ListCategoryContainer from "./components/ListContainer";
+import BusinessCareer from "./components/BusinessCareer";
 
 export default function Home() {
   return (
     <div>
       <Swiper />
-      <GridNewsContainer />
+      <ListCategoryContainer />
+      <PopularNews />
+      <BusinessCareer />
     </div>
   );
 }
