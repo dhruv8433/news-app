@@ -40,9 +40,7 @@ const OtpContainer = ({ setOpen, loading, setLoading }) => {
 
   return (
     <div className="flex flex-col justify-center items-center h-full text-start">
-      <form
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="flex justify-between items-center text-center mb-6">
           <div className="">
             <h2 className="text-2xl font-bold text-start">Sign Up</h2>
@@ -80,7 +78,7 @@ const OtpContainer = ({ setOpen, loading, setLoading }) => {
           {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
           <span>Verify OTP</span>
         </button>
-      </form>
+      </div>
     </div>
   );
 };
