@@ -1,21 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getHeadlines } from "../Services/getHeadlines";
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import Link from "next/link";
+
+import SwiperCard from "./SwiperCard";
+import NewsSwiperSlide from "./NewsSwiperSlide";
+import { SwiperSkeleton, CardSkeleton } from "./Skeleton";
 
 const SwiperSection = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   async function getTopHeadlines() {
     try {
       const response = await getHeadlines();
       setData(response.articles);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -27,44 +32,50 @@ const SwiperSection = () => {
 
   return (
     <Container>
-      <div className="mt-4 rounded-md">
-        <Swiper
-          spaceBetween={30}
-          centeredSlides={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          navigation={true}
-          modules={[Autoplay, Pagination, Navigation]}
-          className="mySwiper h-[600px] rounded-md"
-        >
-          {data &&
-            data.map((article, index) => {
-              if (article.title !== "[Removed]")
-                return (
-                  <SwiperSlide key={index}>
-                    <div className="">
-                      <Link href={article.url}>
-                        <img
-                          className="object-cover h-min w-full"
-                          src={article.urlToImage}
-                          alt=""
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4">
-                          <h1 className="text-3xl text-white">
-                            {article.title}
-                          </h1>
-                        </div>
-                      </Link>
-                    </div>
-                  </SwiperSlide>
-                );
-            })}
-        </Swiper>
+      <div className="mt-10 rounded-md">
+        <Grid container spacing={1}>
+          <Grid item xs={12} md={9}>
+            {loading ? (
+              <SwiperSkeleton />
+            ) : (
+              <Swiper
+                spaceBetween={30}
+                centeredSlides={true}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                navigation={true}
+                modules={[Autoplay, Pagination, Navigation]}
+                className="mySwiper h-[624px] rounded-md"
+              >
+                {data &&
+                  data.map((article, index) => {
+                    if (article.title !== "[Removed]")
+                      return (
+                        <SwiperSlide key={index}>
+                          <NewsSwiperSlide article={article} />
+                        </SwiperSlide>
+                      );
+                  })}
+              </Swiper>
+            )}
+          </Grid>
+          <Grid item xs={12} md={3}>
+            {loading ? (
+              <>
+                <CardSkeleton height={200} />
+                <CardSkeleton height={200} />
+                <CardSkeleton height={200} />
+              </>
+            ) : (
+              <SwiperCard news={data} careerNews={false} />
+            )}
+          </Grid>
+        </Grid>
       </div>
     </Container>
   );
