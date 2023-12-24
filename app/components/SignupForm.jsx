@@ -7,8 +7,10 @@ import OtpContainer from "./OtpContainer";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import { onSignup } from "../Services/OnSignUp";
-import { RecaptchaVerifier, getAuth } from "firebase/auth";
+import { RecaptchaVerifier, getAuth, onAuthStateChanged } from "firebase/auth";
 import { CgSpinner } from "react-icons/cg";
+import { Google } from "@mui/icons-material";
+import { handleSignIn } from "../Services/GoogleSignup";
 
 const SignupForm = ({ open, setOpen }) => {
   const [userData, setUserData] = useState({
@@ -50,24 +52,13 @@ const SignupForm = ({ open, setOpen }) => {
       setOpen,
       ph
     );
-    // try {
-    //   const response = await AddUser(userData);
-    //   console.log(response);
-    //   if (response) alert("user created successfully");
-    // } catch (error) {
-    //   console.log(error);
-    // }
   }
 
   return (
     <>
       <Backdrop className="backdrop" open={open} onClose={() => setOpen(false)}>
-        <div className="flex flex-col justify-center items-center h-full text-start">
-          <form
-            method="POST"
-            className="bg-white shadow-md rounded p-4 w-80"
-            onSubmit={handleSubmit}
-          >
+        <div className="flex flex-col justify-center items-center text-start bg-white shadow-md rounded p-4 w-80">
+          <form method="POST" className="" onSubmit={handleSubmit}>
             <div className="flex justify-between items-center text-center mb-6">
               <div className="">
                 <h2 className="text-2xl font-bold text-start">Sign Up</h2>
@@ -146,7 +137,7 @@ const SignupForm = ({ open, setOpen }) => {
             <div className="flex items-center justify-center">
               <button
                 onClick={onSignup}
-                className="w-full hover:bg-red-600 flex gap-1 items-center justify-center py-2 text-white rounded secondry-bg"
+                className="w-full hover:bg-white hover:text-black hover:border-red-600 border flex gap-1 items-center justify-center py-2 text-white rounded secondry-bg"
               >
                 {signupLoading && (
                   <CgSpinner size={20} className="mt-1 animate-spin" />
@@ -155,6 +146,20 @@ const SignupForm = ({ open, setOpen }) => {
               </button>
             </div>
           </form>
+          <div className="flex items-center justify-center w-full">
+            <button
+              onClick={() => handleSignIn()}
+              className="w-full mt-2 hover:bg-white border hover:text-black hover:border-red-600 flex gap-1 items-center text-center justify-center py-2 text-white rounded secondry-bg"
+            >
+              <Google className="mt-1 animate-bounce" />
+
+              <span>Sign up with Google</span>
+            </button>
+          </div>
+          <div className="flex flex-col text-center justify-center">
+            <h1>Already have Account?</h1>
+            <p className="text-secondary">Login</p>
+          </div>
         </div>
       </Backdrop>
       <Backdrop open={otpModel}>
