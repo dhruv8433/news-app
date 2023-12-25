@@ -34,7 +34,7 @@ const EducationComponent = () => {
           </>
         ) : (
           education.slice(0, 6).map((edu) => (
-            <Grid item key={edu} xs={12} md={4}>
+            <Grid item key={edu.title} xs={12} md={4}>
               <PopularCard article={edu} edu={true} />
             </Grid>
           ))
