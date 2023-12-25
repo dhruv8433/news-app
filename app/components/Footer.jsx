@@ -6,7 +6,7 @@ import {
   Telegram,
   Twitter,
 } from "@mui/icons-material";
-import { Container, Divider, Grid, IconButton } from "@mui/material";
+import { Box, Container, Divider, Grid, IconButton } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <div className="primary-bg">
       <Container>
-        <div className="h-[320px]">
+        <Box sx={{ height: { xs: "600px", md: "320px" } }}>
           <Grid container>
             <Grid item xs={12} md={4}>
               <div className="flex justify-start mt-5 text-white items-center">
@@ -132,7 +132,7 @@ const Footer = () => {
               </div>
             </Grid>
           </Grid>
-        </div>
+        </Box>
         <hr />
         <div className="mt-1 text-white flex flex-col justify-center text-center w-full">
           <h1>@2023 Enews</h1>
