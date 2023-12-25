@@ -24,7 +24,7 @@ const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [drawer, setDrawer] = useState(false);
   const [searchPopup, setSearchPopup] = useState(false);
-  const [quert, setQuery] = useState("");
+  const [query, setQuery] = useState("");
   const router = useRouter();
 
   const SpecificNewsSerached = (event) => {
@@ -129,7 +129,7 @@ const NavBar = () => {
             <Backdrop open={searchPopup} onClose={() => setSearchPopup(false)}>
               <Box
                 className="bg-white text-start flex flex-col justify-start overflow-hidden rounded p-2"
-                height={130}
+                height={150}
                 width={200}
               >
                 <div className="flex justify-between items-center">
@@ -142,10 +142,22 @@ const NavBar = () => {
 
                 <input
                   type="text"
-                  className="p-1 my-5 rounded border w-[180px] border-black"
+                  className="p-1 my-4 rounded border w-[180px] border-black"
                   placeholder="search anything"
-                  onKeyPress={(e) => SpecificNewsSerached(e)}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
+                <div className="flex justify-end">  
+                  <button
+                    onClick={() => {
+                      router.push(`/query/${query}`);
+                      setSearchPopup(false);
+                    }}
+                    className="text-right hover:text-white hover:bg-red-500 rounded py-1 px-2 border"
+                  >
+                    Search
+                  </button>
+                </div>
               </Box>
             </Backdrop>
           </Box>
