@@ -29,9 +29,7 @@ const ListCategoryContainer = () => {
   return (
     <Container className="mt-4">
       <marquee
-        behavior="alternative"
-        onmouseover="stop()"
-        onmouseout="start()"
+        behavior="alternative"  
         direction="left"
       >
         <div className="flex">
