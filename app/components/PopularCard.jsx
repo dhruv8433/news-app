@@ -1,8 +1,11 @@
+import { FavoriteBorder } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import slugify from "slugify";
 
 const PopularCard = ({ article, edu }) => {
+  
   const saveDetails = (art) => {
     localStorage.setItem("details", JSON.stringify(art));
   };
@@ -10,17 +13,24 @@ const PopularCard = ({ article, edu }) => {
   return (
     <div>
       <div className="px-3 py-1">
+        <div
+          className={`like absolute ml-2 mt-2 border bg-white rounded-full`}
+        >
+          <IconButton>
+            <FavoriteBorder />
+          </IconButton>
+        </div>
+        {!edu ? (
+          <div className="trending absolute bg-red-500 text-white p-1 rounded mt-3 ml-44">
+            <p>trending</p>
+          </div>
+        ) : (
+          ""
+        )}
         <Link
           href={"/categorys/" + slugify(article.title).toLowerCase()}
           onClick={() => saveDetails(article)}
         >
-          {!edu ? (
-            <div className="trending absolute bg-red-500 text-white p-1 rounded mt-1 ml-1">
-              <p>trending</p>
-            </div>
-          ) : (
-            ""
-          )}
           <>
             <div className="h-[400px] rounded overflow-hidden">
               <img
