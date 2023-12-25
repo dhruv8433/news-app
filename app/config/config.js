@@ -18,4 +18,4 @@ export const categorys = [
   "Politics",
 ];
 
-export const key = "453bcc094cb84974bfca21c461508f0e";
+export const key = "a6e7afc1f84947f8a99943707efdb9d9";
