@@ -49,7 +49,7 @@ const BusinessCareer = () => {
                 <HorizontalCardSkeleton />
               </>
             ) : (
-              <HorizontalCard data={business} />
+              <HorizontalCard data={business} profilePage={false} />
             )}
 
             <EducationComponent />
