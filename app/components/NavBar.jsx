@@ -17,7 +17,15 @@ import Link from "next/link";
 import React, { useState } from "react";
 import SignupForm from "./SignupForm";
 import { useRouter } from "next/navigation";
-import { Close, Menu, Public, SearchRounded } from "@mui/icons-material";
+import {
+  Close,
+  Home,
+  HomeOutlined,
+  Menu,
+  Public,
+  SearchRounded,
+  Whatshot,
+} from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 const NavBar = () => {
@@ -53,7 +61,22 @@ const NavBar = () => {
                 open={drawer}
                 onClose={() => setDrawer(false)}
               >
-                <Box width={300}></Box>
+                <Box width={300} className="h-screen">
+                  <Link
+                    href={"/"}
+                    className="text-2xl space-y-1 text-red-500 flex"
+                  >
+                    <div className="flex justify-center w-full my-4 text-center items-center">
+                      <Public />
+                      <h1>ENews</h1>
+                    </div>
+                  </Link>
+                  <Divider />
+                  <PhoneRoutes />
+                </Box>
+                <div className="absolute bottom-0 w-full justify-center flex items-center text-center">
+                  @2023 <span className="text-red-500">{" "}Enews</span>
+                </div>
               </Drawer>
             </Box>
             <Link href={"/"} className="text-2xl space-y-1 text-white flex">
@@ -147,7 +170,7 @@ const NavBar = () => {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
-                <div className="flex justify-end">  
+                <div className="flex justify-end">
                   <button
                     onClick={() => {
                       router.push(`/query/${query}`);
@@ -168,3 +191,32 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+const PhoneRoutes = () => {
+  return (
+    <>
+      <Link href={"/"}>
+        <div className="flex py-4 cursor-pointer hover:bg-red-100 ">
+          <div className="icon pl-5">
+            <HomeOutlined />
+          </div>
+          <div className="text ml-5">
+            <h1>Home</h1>
+          </div>
+        </div>
+      </Link>
+      <Divider />
+      <Link href={"/popular-news"}>
+        <div className="flex py-4 cursor-pointer hover:bg-red-100 ">
+          <div className="icon pl-5">
+            <Whatshot />
+          </div>
+          <div className="text ml-5">
+            <h1>Popular</h1>
+          </div>
+        </div>
+      </Link>
+      <Divider />
+    </>
+  );
+};
