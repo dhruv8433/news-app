@@ -1,7 +1,12 @@
 "use client";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { Checkbox, IconButton } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import slugify from "slugify";
+import { addFavorite } from "../action/action";
+import toast from "react-hot-toast";
 
 const SwiperCard = ({ news, careerNews }) => {
   console.log("News Got...", news);
@@ -26,8 +31,33 @@ const newsCard = (article) => {
   const saveDetails = (art) => {
     localStorage.setItem("details", JSON.stringify(art));
   };
+
+  const favItems = useSelector((state) => state.fav.items);
+  const dispatch = useDispatch();
+
+  async function addToLike(data) {
+    try {
+      const isAlreadyLiked = favItems.some((item) => item.title === data.title);
+      if (isAlreadyLiked) {
+        toast.error("Article already in favorites");
+      } else {
+        const response = dispatch(addFavorite(data));
+        toast.success("Article added to favorites");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="px-3 py-1" key={article.url}>
+      <div className={`like absolute ml-2 mt-2 border bg-white rounded-full`}>
+        <Checkbox
+          icon={<FavoriteBorder />}
+          checkedIcon={<Favorite />}
+          onClick={() => addToLike(article)}
+        />
+      </div>
       <Link
         href={"/categorys/" + slugify(article.title).toLowerCase()}
         onClick={() => saveDetails(article)}
