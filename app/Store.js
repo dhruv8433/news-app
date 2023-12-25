@@ -14,7 +14,7 @@ import {
 } from "redux-persist";
 
 const persistConfig = {
-  key: "root", // The key to use for storing data
+  key: "root1", // The key to use for storing data
   storage, // Choose between localStorage or sessionStorage
 };
 
