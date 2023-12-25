@@ -6,11 +6,27 @@ import OtpInput from "otp-input-react";
 import { IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import toast from "react-hot-toast";
+import { AddUser } from "../Services/addUser";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { UserLoginSuccess } from "../action/action";
 
-const OtpContainer = ({ setOpen, loading, setLoading }) => {
+const OtpContainer = ({ user, setOpen, loading, setLoading, phoneNo }) => {
   const [otp, setOtp] = useState(null);
 
-  function onOTPVerify() {
+  const dispatch = useDispatch();
+
+  async function addUserData(user) {
+    try {
+      const response = await AddUser(user);
+      console.log(response);
+      toast.success("user login successfully");
+    } catch (error) {
+      console.log("error in creating user: ", error);
+    }
+  }
+
+  async function onOTPVerify() {
     setLoading(true);
 
     if (!window.confirmationResult) {
@@ -23,16 +39,19 @@ const OtpContainer = ({ setOpen, loading, setLoading }) => {
     window.confirmationResult
       .confirm(otp)
       .then((res) => {
+        addUserData(user);
+        dispatch(UserLoginSuccess(user));
         console.log(res);
         setLoading(false);
         setOpen(false);
         console.log("Verify success");
-        toast.success("Signup successful");
+        user.phone = phoneNo;
+        console.log(user);
+        toast.success("Login successful");
+        Cookies.set("authenticated", true);
       })
       .catch((err) => {
         console.log(err);
-        // setLoading(false);
-        // Log the error or handle the error
         toast.error("Verification failed");
       });
   }
