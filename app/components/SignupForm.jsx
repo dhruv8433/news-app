@@ -11,13 +11,15 @@ import { RecaptchaVerifier, getAuth, onAuthStateChanged } from "firebase/auth";
 import { CgSpinner } from "react-icons/cg";
 import { Google } from "@mui/icons-material";
 import { handleSignIn } from "../Services/GoogleSignup";
+import { useDispatch } from "react-redux";
 
 const SignupForm = ({ open, setOpen }) => {
   const [userData, setUserData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
     phone: "",
+    url: "https://c0.klipartz.com/pngpicture/136/22/gratis-png-perfil-de-usuario-computadora-iconos-chica-cliente-avatar.png",
   });
 
   const [otpModel, setOtpModel] = useState(false);
@@ -34,7 +36,14 @@ const SignupForm = ({ open, setOpen }) => {
         {
           size: "invisible",
           callback: (response) => {
-            onSignup(setLoading, onCaptchVerify);
+            onSignup({
+              setLoading,
+              onCaptchVerify,
+              setSignupLoading,
+              setOtpModel,
+              setOpen,
+              ph,
+            });
           },
         }
       );
@@ -54,11 +63,13 @@ const SignupForm = ({ open, setOpen }) => {
     );
   }
 
+  const dispatch = useDispatch();
+
   return (
     <>
       <Backdrop className="backdrop" open={open} onClose={() => setOpen(false)}>
         <div className="flex flex-col justify-center items-center text-start bg-white shadow-md rounded p-4 w-80">
-          <form method="POST" className="" onSubmit={handleSubmit}>
+          <div className="" onSubmit={handleSubmit}>
             <div className="flex justify-between items-center text-center mb-6">
               <div className="">
                 <h2 className="text-2xl font-bold text-start">Sign Up</h2>
@@ -71,18 +82,18 @@ const SignupForm = ({ open, setOpen }) => {
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-medium mb-2">
-                Username
+                name
               </label>
               <input
                 type="text"
-                id="username"
-                name="username"
+                id="name"
+                name="name"
                 required
-                value={userData.username}
+                value={userData.name}
                 onChange={(e) =>
-                  setUserData({ ...userData, username: e.target.value })
+                  setUserData({ ...userData, name: e.target.value })
                 }
-                placeholder="Enter your username"
+                placeholder="Enter your name"
                 className="shadow  border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
@@ -136,7 +147,15 @@ const SignupForm = ({ open, setOpen }) => {
             <div id="recaptcha-container"></div>
             <div className="flex items-center justify-center">
               <button
-                onClick={onSignup}
+                onClick={() =>
+                  onSignup({
+                    setLoading: setLoading,
+                    onCaptchVerify: onCaptchVerify,
+                    setOtpModel: setOtpModel,
+                    setOpen: setOpen,
+                    ph: ph,
+                  })
+                }
                 className="w-full hover:bg-white hover:text-black hover:border-red-600 border flex gap-1 items-center justify-center py-2 text-white rounded secondry-bg"
               >
                 {signupLoading && (
@@ -145,10 +164,10 @@ const SignupForm = ({ open, setOpen }) => {
                 <span>Sign up</span>
               </button>
             </div>
-          </form>
+          </div>
           <div className="flex items-center justify-center w-full">
             <button
-              onClick={() => handleSignIn()}
+              onClick={() => handleSignIn({ dispatch, setOpen })}
               className="w-full mt-2 hover:bg-white border hover:text-black hover:border-red-600 flex gap-1 items-center text-center justify-center py-2 text-white rounded secondry-bg"
             >
               <Google className="mt-1 animate-bounce" />
@@ -156,18 +175,16 @@ const SignupForm = ({ open, setOpen }) => {
               <span>Sign up with Google</span>
             </button>
           </div>
-          <div className="flex flex-col text-center justify-center">
-            <h1>Already have Account?</h1>
-            <p className="text-secondary">Login</p>
-          </div>
         </div>
       </Backdrop>
       <Backdrop open={otpModel}>
         <OtpContainer
           // open={otpModel}
+          user={userData}
           setOpen={setOtpModel}
           loading={loading}
           setLoading={setLoading}
+          phoneNo={ph}
         />
       </Backdrop>
     </>
