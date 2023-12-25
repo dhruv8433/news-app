@@ -1,5 +1,5 @@
 import { FavoriteBorder } from "@mui/icons-material";
-import { Card, CardContent, CardMedia, IconButton } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, IconButton } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -43,9 +43,15 @@ const HorizontalCard = ({ data, profilePage }) => {
             href={"/categorys/" + slugify(article.title).toLowerCase()}
             onClick={() => saveDetails(article)}
           >
-            <Card className="flex justify-between my-4">
+            <Card
+              sx={{ display: { xs: "block", md: "flex" } }}
+              className="justify-between my-4"
+            >
               <CardMedia className="w-1/4 h-48">
-                <div className="w-[200px] h-full">
+                <Box
+                  sx={{ width: { xs: "400px", md: "200px" } }}
+                  className="h-full"
+                >
                   <img
                     src={article.urlToImage}
                     alt=""
@@ -53,7 +59,7 @@ const HorizontalCard = ({ data, profilePage }) => {
                     height={"100%"}
                     width={"100%"}
                   />
-                </div>
+                </Box>
               </CardMedia>
               <CardContent className="w-full">
                 <div className="text-start ml-3">
