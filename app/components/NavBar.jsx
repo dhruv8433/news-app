@@ -2,29 +2,35 @@
 
 import {
   Avatar,
+  Backdrop,
   Box,
   Button,
   Container,
+  Divider,
   Drawer,
   Grid,
+  Icon,
   IconButton,
+  Modal,
 } from "@mui/material";
 import Link from "next/link";
 import React, { useState } from "react";
 import SignupForm from "./SignupForm";
 import { useRouter } from "next/navigation";
-import { Menu, Public } from "@mui/icons-material";
+import { Close, Menu, Public, SearchRounded } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const [drawer, setDrawer] = useState(false);
+  const [searchPopup, setSearchPopup] = useState(false);
   const [quert, setQuery] = useState("");
   const router = useRouter();
 
   const SpecificNewsSerached = (event) => {
     if (event.key === "Enter") {
       console.log("Enter Clicked");
+      setSearchPopup(false);
       router.push(`/query/${event.target.value}`);
     }
   };
@@ -94,13 +100,14 @@ const NavBar = () => {
           </Box>
 
           {/* for mobile view */}
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <input
-              type="text"
-              className="mx-2 p-1 rounded"
-              placeholder="search anything"
-              onKeyPress={(e) => SpecificNewsSerached(e)}
-            />
+          <Box
+            className="items-center"
+            sx={{ display: { xs: "flex", md: "none" } }}
+          >
+            <IconButton onClick={() => setSearchPopup(true)}>
+              <SearchRounded sx={{ color: "white" }} />
+            </IconButton>
+
             {user ? (
               <Link href={"/profile"}>
                 <Avatar
@@ -119,6 +126,28 @@ const NavBar = () => {
               </Button>
             )}
             <SignupForm open={open} setOpen={setOpen} />
+            <Backdrop open={searchPopup} onClose={() => setSearchPopup(false)}>
+              <Box
+                className="bg-white text-start flex flex-col justify-start overflow-hidden rounded p-2"
+                height={130}
+                width={200}
+              >
+                <div className="flex justify-between items-center">
+                  <h1 className="text-red-500 font-semibold">Search Here</h1>
+                  <IconButton onClick={() => setSearchPopup(false)}>
+                    <Close />
+                  </IconButton>
+                </div>
+                <Divider />
+
+                <input
+                  type="text"
+                  className="p-1 my-5 rounded border w-[180px] border-black"
+                  placeholder="search anything"
+                  onKeyPress={(e) => SpecificNewsSerached(e)}
+                />
+              </Box>
+            </Backdrop>
           </Box>
         </nav>
       </Container>
