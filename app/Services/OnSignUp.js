@@ -4,21 +4,20 @@ import toast from "react-hot-toast";
 import { auth } from "../firebaseConfig";
 import { signInWithPhoneNumber } from "firebase/auth";
 
-export async function onSignup(
+export async function onSignup({
   setLoading,
   onCaptchVerify,
   setSignupLoading,
   setOtpModel,
   setOpen,
-  ph
-) {
-  setLoading(true);
+  ph,
+}) {
+  // setLoading(true);
+  // setSignupLoading(true);
   onCaptchVerify();
-  setSignupLoading(true);
 
   const appVerifier = window.recaptchaVerifier;
 
-  
   const formatPh = "+" + ph;
   console.log("pghone", formatPh);
 
@@ -33,6 +32,6 @@ export async function onSignup(
     })
     .catch((error) => {
       console.log(error);
-      setLoading(false);
+      // setLoading(false);
     });
 }
