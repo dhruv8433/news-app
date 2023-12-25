@@ -1,8 +1,21 @@
-import { Card, CardContent, CardMedia, Skeleton } from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, Skeleton } from "@mui/material";
 import React from "react";
 
 export const SwiperSkeleton = () => {
-  return <Skeleton height={"624px"} width={"100%"} />;
+  return (
+    <Grid container>
+      {/* Main container with specified size */}
+      <Grid item xs={12} md={9} style={{ maxWidth: "100%", height: "620px" }}>
+        {/* Skeleton representing the main content */}
+        <Skeleton variant="rectangular" height="100%" width="100%" />
+      </Grid>
+      <Grid item xs={12} md={3}>
+        <CardSkeleton height={200} />
+        <CardSkeleton height={200} />
+        <CardSkeleton height={200} />
+      </Grid>
+    </Grid>
+  );
 };
 
 export const CardSkeleton = ({ height }) => {

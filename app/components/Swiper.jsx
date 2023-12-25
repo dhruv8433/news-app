@@ -33,11 +33,11 @@ const SwiperSection = () => {
   return (
     <Container>
       <div className="mt-10 rounded-md">
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={9}>
-            {loading ? (
-              <SwiperSkeleton />
-            ) : (
+        {loading ? (
+          <SwiperSkeleton />
+        ) : (
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={9}>
               <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -62,20 +62,12 @@ const SwiperSection = () => {
                       );
                   })}
               </Swiper>
-            )}
-          </Grid>
-          <Grid item xs={12} md={3}>
-            {loading ? (
-              <>
-                <CardSkeleton height={200} />
-                <CardSkeleton height={200} />
-                <CardSkeleton height={200} />
-              </>
-            ) : (
+            </Grid>
+            <Grid item xs={12} md={3}>
               <SwiperCard news={data} careerNews={false} />
-            )}
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </div>
     </Container>
   );
