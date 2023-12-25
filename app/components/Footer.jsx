@@ -16,7 +16,7 @@ const Footer = () => {
       <Container>
         <div className="h-[320px]">
           <Grid container>
-            <Grid xs={12} md={4}>
+            <Grid item xs={12} md={4}>
               <div className="flex justify-start mt-5 text-white items-center">
                 <Public />
                 <h1 className="text-3xl font-semibold">ENews</h1>
@@ -39,55 +39,97 @@ const Footer = () => {
                 </div>
 
                 <div className="icons  flex mt-10">
-                  <IconButton sx={{color: "white"}}>
+                  <IconButton sx={{ color: "white" }}>
                     <Instagram />
                   </IconButton>
-                  <IconButton sx={{color: "white"}}>
+                  <IconButton sx={{ color: "white" }}>
                     <Twitter />
                   </IconButton>
-                  <IconButton sx={{color: "white"}}>
+                  <IconButton sx={{ color: "white" }}>
                     <Facebook />
                   </IconButton>
-                  <IconButton sx={{color: "white"}}>
+                  <IconButton sx={{ color: "white" }}>
                     <Telegram />
                   </IconButton>
-                  <IconButton sx={{color: "white"}}>
+                  <IconButton sx={{ color: "white" }}>
                     <Pinterest />
                   </IconButton>
                 </div>
                 <hr />
                 <div className=" text-white my-5">
-                    <h1>Quick & Fast News At One Place</h1>
+                  <h1>Quick & Fast News At One Place</h1>
                 </div>
               </div>
             </Grid>
-            <Grid xs={12} md={8}>
-                <div className="mt-5 text-white">
-                    <h1 className="text-xl my-2">Categories</h1>
-                    <hr />
+            <Grid item xs={12} md={8}>
+              <div className="mt-5 text-white">
+                <h1 className="text-xl my-2">Categories</h1>
+                <hr />
+              </div>
+              <div className="flex justify-between w-full px-2 my-5 text-white">
+                <div className="block">
+                  <Link href={"/query/education"}>
+                    <h1>Education</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/sports"}>
+                    <h1>Sports</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/business"}>
+                    <h1>Business</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/career"}>
+                    <h1>Career</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/trending"}>
+                    <h1>Trending</h1>
+                  </Link>
+                  <br />
                 </div>
-                <div className="flex justify-between w-full px-2 my-5 text-white">
-                    <div className="block">
-                        <Link href={'/news/education'}> <h1>Education</h1></Link> <br />
-                        <Link href={'/news/sports'}> <h1>Sports</h1></Link> <br />
-                        <Link href={'/news/business'}> <h1>Business</h1></Link> <br />
-                        <Link href={'/news/career'}> <h1>Career</h1></Link> <br />
-                        <Link href={'/news/trending'}> <h1>Trending</h1></Link> <br />
-                    </div>
-                    <div className="block">
-                        <Link href={'/news/fun'}> <h1>Fun</h1></Link> <br />
-                        <Link href={'/news/movies'}> <h1>Movies</h1></Link> <br />
-                        <Link href={'/news/comedy'}> <h1>Comedy</h1></Link> <br />
-                        <Link href={'/news/hollywood'}> <h1>Hollywood</h1></Link> <br />
-                    </div>
-                    <div className="block">
-                        <Link href={'/news/technologies'}> <h1>Technologies</h1></Link> <br />
-                        <Link href={'/news/health'}> <h1>Health</h1></Link> <br />
-                        <Link href={'/news/family'}> <h1>Family</h1></Link> <br />
-                        <Link href={'/news/dieat'}> <h1>Dieat</h1></Link> <br />
-                        <Link href={'/news/politics'}> <h1>Politics</h1></Link> <br />
-                    </div>
+                <div className="block">
+                  <Link href={"/query/fun"}>
+                    <h1>Fun</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/movies"}>
+                    <h1>Movies</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/comedy"}>
+                    <h1>Comedy</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/hollywood"}>
+                    <h1>Hollywood</h1>
+                  </Link>
+                  <br />
                 </div>
+                <div className="block">
+                  <Link href={"/query/technologies"}>
+                    <h1>Technologies</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/health"}>
+                    <h1>Health</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/family"}>
+                    <h1>Family</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/dieat"}>
+                    <h1>Dieat</h1>
+                  </Link>
+                  <br />
+                  <Link href={"/query/politics"}>
+                    <h1>Politics</h1>
+                  </Link>
+                  <br />
+                </div>
+              </div>
             </Grid>
           </Grid>
         </div>
