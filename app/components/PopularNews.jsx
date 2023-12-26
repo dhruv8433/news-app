@@ -6,19 +6,41 @@ import { getSpecificQueryNews } from "../Services/getAllNews";
 import Heading from "./Heading";
 import PopularCard from "./PopularCard";
 import { CardSkeleton } from "./Skeleton";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 const PopularNews = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const isOnline = navigator.onLine;
+
   async function getPopularNews() {
-    try {
-      const response = await getSpecificQueryNews("popular");
-      console.log("popular", response);
-      setData(response.articles);
+    if (isOnline) {
+      try {
+        const response = await getSpecificQueryNews("popular");
+        if (response.articles) {
+          try {
+            response.articles.forEach(async (article) => {
+              await addDoc(collection(db, "popular"), article);
+            });
+            console.log("Popular added to Firestore");
+          } catch (error) {
+            console.log("error in store db", error);
+          }
+        }
+        setData(response.articles);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const querySnapshot = await getDocs(collection(db, "popular"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        data.push(doc.data());
+      });
       setLoading(false);
-    } catch (error) {
-      console.log(error);
     }
   }
 
