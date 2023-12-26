@@ -8,6 +8,8 @@ import { getSpecificQueryNews } from "../Services/getAllNews";
 import HorizontalCard from "./HorizontalCard";
 import EducationComponent from "./EducationComponent";
 import { CardSkeleton, HorizontalCardSkeleton } from "./Skeleton";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 const BusinessCareer = () => {
   const [data, setData] = useState([]);
@@ -16,16 +18,46 @@ const BusinessCareer = () => {
   const [loading, setLoading] = useState(true);
   const [businessLoading, setBusinessLoading] = useState(true);
 
+  const isOnlined = navigator.onLine;
+
   async function careerNews() {
-    try {
-      const response = await getSpecificQueryNews("career");
-      const business = await getSpecificQueryNews("business");
-      setData(response.articles);
+    if (isOnlined) {
+      try {
+        const response = await getSpecificQueryNews("career");
+        const business = await getSpecificQueryNews("business");
+        setData(response.articles);
+        setLoading(false);
+        setBusiness(business.articles);
+        if (response.articles && business.articles) {
+          try {
+            response.articles.forEach(async (article) => {
+              await addDoc(collection(db, "career"), article);
+            });
+            business.articles.forEach(async (article) => {
+              await addDoc(collection(db, "business"), article);
+            });
+            console.log("Career & Business added to Firestore");
+          } catch (error) {
+            console.log("error in store db", error);
+          }
+        }
+        setBusinessLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const careerData = await getDocs(collection(db, "career"));
+      careerData.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        data.push(doc.data());
+      });
+      const businessData = await getDocs(collection(db, "business"));
+      businessData.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        business.push(doc.data());
+      });
       setLoading(false);
-      setBusiness(business.articles);
       setBusinessLoading(false);
-    } catch (error) {
-      console.log(error);
     }
   }
 
