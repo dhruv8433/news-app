@@ -6,18 +6,41 @@ import { Grid } from "@mui/material";
 import { getSpecificQueryNews } from "../Services/getAllNews";
 import PopularCard from "./PopularCard";
 import { CardSkeleton } from "./Skeleton";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 const EducationComponent = () => {
   const [education, setEducation] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const isOnline = navigator.onLine;
+
   async function getEducationNews() {
-    try {
-      const education = await getSpecificQueryNews("education");
-      setEducation(education.articles);
+    if (isOnline) {
+      try {
+        const education = await getSpecificQueryNews("education");
+        if (education.articles) {
+          try {
+            education.articles.forEach(async (article) => {
+              await addDoc(collection(db, "edu"), article);
+            });
+            console.log("Edu added to Firestore");
+          } catch (error) {
+            console.log("error in store db", error);
+          }
+        }
+        setEducation(education.articles);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }else {
+      const querySnapshot = await getDocs(collection(db, "edu"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        education.push(doc.data());
+      });
       setLoading(false);
-    } catch (error) {
-      console.log(error);
     }
   }
 
