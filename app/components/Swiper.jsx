@@ -11,18 +11,33 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import SwiperCard from "./SwiperCard";
 import NewsSwiperSlide from "./NewsSwiperSlide";
 import { SwiperSkeleton, CardSkeleton } from "./Skeleton";
+import { db } from "../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
+import { isOnline } from "../config/config";
 
 const SwiperSection = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const isOnline = navigator.onLine;
+  
   async function getTopHeadlines() {
-    try {
-      const response = await getHeadlines();
-      setData(response.articles);
+    if (isOnline) {
+      try {
+        const response = await getHeadlines();
+        setData(response.articles);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const querySnapshot = await getDocs(collection(db, "headlines"));
       setLoading(false);
-    } catch (error) {
-      console.log(error);
+      console.log("q", querySnapshot);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        data.push(doc.data());
+      });
     }
   }
 
