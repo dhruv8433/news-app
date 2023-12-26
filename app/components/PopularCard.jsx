@@ -5,7 +5,8 @@ import React from "react";
 import slugify from "slugify";
 
 const PopularCard = ({ article, edu }) => {
-  
+  console.log("article", article);
+
   const saveDetails = (art) => {
     localStorage.setItem("details", JSON.stringify(art));
   };
@@ -13,9 +14,7 @@ const PopularCard = ({ article, edu }) => {
   return (
     <div>
       <div className="px-3 py-1">
-        <div
-          className={`like absolute ml-2 mt-2 border bg-white rounded-full`}
-        >
+        <div className={`like absolute ml-2 mt-2 border bg-white rounded-full`}>
           <IconButton>
             <FavoriteBorder />
           </IconButton>
