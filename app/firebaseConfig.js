@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { enableIndexedDbPersistence, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAWIZbFJI_HXiP0bXx6nGlI8ipwA5cDB_0",
@@ -14,5 +14,20 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+const db = getFirestore(app);
 export const auth = getAuth(app);
+
+// Enable offline persistence
+enableIndexedDbPersistence(db)
+  .then(() => {
+    // Offline persistence enabled successfully
+    console.log("Offline support enabled");
+  })
+  .catch((error) => {
+    // Error handling if offline persistence fails
+    console.error("Error enabling offline support:", error);
+  });
+
+export { app, db };
+
+export default app;
