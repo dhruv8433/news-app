@@ -35,6 +35,7 @@ const NavBar = () => {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
+  // for search specific articles
   const SpecificNewsSerached = (event) => {
     if (event.key === "Enter") {
       console.log("Enter Clicked");
@@ -43,10 +44,13 @@ const NavBar = () => {
     }
   };
 
+  // get user from redux store
   const user = useSelector((state) => state.auth);
+  // check whether user is authenticated or not
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
+  // if authnticated than fetch image url -> only when google log in
   const userImage = user.isAuthenticated ? user.user.url : "";
+
   return (
     <div className="pb-3 primary-bg">
       <Container>
@@ -75,7 +79,7 @@ const NavBar = () => {
                   <PhoneRoutes />
                 </Box>
                 <div className="absolute bottom-0 w-full justify-center flex items-center text-center">
-                  @2023 <span className="text-red-500">{" "}Enews</span>
+                  @2023 <span className="text-red-500"> Enews</span>
                 </div>
               </Drawer>
             </Box>
@@ -102,6 +106,7 @@ const NavBar = () => {
               placeholder="search anything"
               onKeyPress={(e) => SpecificNewsSerached(e)}
             />
+            {/* if user is authenticated than display avatar else sign up button */}
             {isAuthenticated ? (
               <Link href={"/profile"}>
                 <Avatar
@@ -149,6 +154,7 @@ const NavBar = () => {
               </Button>
             )}
             <SignupForm open={open} setOpen={setOpen} />
+            {/* backdrop that contain search functionality in mobile devices */}
             <Backdrop open={searchPopup} onClose={() => setSearchPopup(false)}>
               <Box
                 className="bg-white text-start flex flex-col justify-start overflow-hidden rounded p-2"
@@ -192,6 +198,7 @@ const NavBar = () => {
 
 export default NavBar;
 
+// route for phone devices in drawer menu
 const PhoneRoutes = () => {
   return (
     <>

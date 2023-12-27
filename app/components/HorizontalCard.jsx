@@ -7,6 +7,7 @@ import slugify from "slugify";
 import { removeFavorite } from "../action/action";
 import toast from "react-hot-toast";
 
+// reusable Horizontal Card
 const HorizontalCard = ({ data, profilePage }) => {
   const saveDetails = (art) => {
     localStorage.setItem("details", JSON.stringify(art));
@@ -14,6 +15,7 @@ const HorizontalCard = ({ data, profilePage }) => {
 
   const dispatch = useDispatch();
 
+  // remove any favorites 
   function RemoveFromFav(art) {
     console.log("Removed", art);
     try {
@@ -27,6 +29,7 @@ const HorizontalCard = ({ data, profilePage }) => {
     <div>
       {data.slice(0, 5).map((article) => (
         <>
+          {/* if it doesn't a profile page than only this add fav btn visible */}
           {!profilePage ? (
             <div
               className={`like absolute ml-2 mt-2 border bg-white rounded-full`}
@@ -83,6 +86,7 @@ const HorizontalCard = ({ data, profilePage }) => {
               </CardContent>
             </Card>
           </Link>
+          {/* inside profile page we give remove fav btn that remove any article from favoritesF */}
           {profilePage ? (
             <div className="flex justify-end mr-2 -mt-14">
               <button

@@ -1,5 +1,6 @@
 import React from "react";
 
+// reusable heaing that take content and display the headingsF
 const Heading = ({ content }) => {
   return (
     <div className="custom-heading">

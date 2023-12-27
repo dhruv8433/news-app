@@ -16,6 +16,7 @@ const Footer = () => {
       <Container>
         <Box sx={{ height: { xs: "600px", md: "320px" } }}>
           <Grid container>
+            {/* left side section that containing subscribe btn as well about ENews */}
             <Grid item xs={12} md={4}>
               <div className="flex justify-start mt-5 text-white items-center">
                 <Public />
@@ -61,6 +62,7 @@ const Footer = () => {
                 </div>
               </div>
             </Grid>
+            {/* right side containing all categories that we provide at ENews */}
             <Grid item xs={12} md={8}>
               <div className="mt-5 text-white">
                 <h1 className="text-xl my-2">Categories</h1>
@@ -134,6 +136,7 @@ const Footer = () => {
           </Grid>
         </Box>
         <hr />
+        {/* #branding */}
         <div className="mt-1 text-white flex flex-col justify-center text-center w-full">
           <h1>@2023 Enews</h1>
           <h1>All Rights Reserved</h1>

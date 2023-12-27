@@ -11,6 +11,7 @@ const page = () => {
   const [article, setArticle] = useState([]);
 
   useEffect(() => {
+    // for detailed page we getting data from our local storageF and set into useState
     const data = localStorage.getItem("details");
     const jsonData = JSON.parse(data);
     setArticle(jsonData);
@@ -41,7 +42,10 @@ const page = () => {
           <p className="text-sm">{article.description} </p>
 
           <p>
-            For more information visit : <a href={article.url} className="text-blue-500 underline">{article.url}</a>
+            For more information visit :{" "}
+            <a href={article.url} className="text-blue-500 underline">
+              {article.url}
+            </a>
           </p>
         </div>
       </Container>

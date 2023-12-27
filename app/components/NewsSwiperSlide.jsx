@@ -2,7 +2,9 @@ import Link from "next/link";
 import React from "react";
 import slugify from "slugify";
 
+// reusable swiper slides component
 const NewsSwiperSlide = ({ article }) => {
+  // when user clicks on any slide it stores the data of slide into local storage for detailed view
   const saveDetails = (art) => {
     localStorage.setItem("details", JSON.stringify(art));
   };

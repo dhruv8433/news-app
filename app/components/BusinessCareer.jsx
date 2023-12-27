@@ -15,12 +15,15 @@ const BusinessCareer = () => {
   const [data, setData] = useState([]);
   const [business, setBusiness] = useState([]);
 
+  // for skeletons
   const [loading, setLoading] = useState(true);
   const [businessLoading, setBusinessLoading] = useState(true);
 
+  // to check whether user is online or not
   const isOnlined = navigator.onLine;
 
   async function careerNews() {
+    // if user is online then send request to api
     if (isOnlined) {
       try {
         const response = await getSpecificQueryNews("career");
@@ -28,6 +31,7 @@ const BusinessCareer = () => {
         setData(response.articles);
         setLoading(false);
         setBusiness(business.articles);
+        // response store in firestore so wher user is offline we got data from there
         if (response.articles && business.articles) {
           try {
             response.articles.forEach(async (article) => {
@@ -45,7 +49,9 @@ const BusinessCareer = () => {
       } catch (error) {
         console.log(error);
       }
-    } else {
+    }
+    // else getting data from cache(firestore)
+    else {
       const careerData = await getDocs(collection(db, "career"));
       careerData.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
@@ -71,6 +77,7 @@ const BusinessCareer = () => {
         <Grid item xs={12} md={8}>
           <div className="">
             <Heading content={"Business"} />
+            {/* business card skeletons */}
             {businessLoading ? (
               <>
                 <HorizontalCardSkeleton />
@@ -90,6 +97,7 @@ const BusinessCareer = () => {
         <Grid item xs={12} md={4}>
           <div className="">
             <Heading content={"Career"} />
+            {/* small card skeletons  */}
             {loading ? (
               <>
                 <CardSkeleton height={200} />

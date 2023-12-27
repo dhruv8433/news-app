@@ -13,12 +13,15 @@ const EducationComponent = () => {
   const [education, setEducation] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // to check whether user is online or not
   const isOnline = navigator.onLine;
 
   async function getEducationNews() {
+    // if online then get data from api
     if (isOnline) {
       try {
         const education = await getSpecificQueryNews("education");
+        // store the data in firestore so we got it when user is offline
         if (education.articles) {
           try {
             education.articles.forEach(async (article) => {
@@ -30,11 +33,14 @@ const EducationComponent = () => {
           }
         }
         setEducation(education.articles);
+        // disable skeleton
         setLoading(false);
       } catch (error) {
         console.log(error);
       }
-    }else {
+    }
+    // if user is offline, then getting data from Firestore
+    else {
       const querySnapshot = await getDocs(collection(db, "edu"));
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
@@ -51,6 +57,7 @@ const EducationComponent = () => {
     <div>
       <Heading content={"Education"} />
       <Grid container>
+        {/* large card skeleton visible until data fetched */}
         {loading ? (
           <>
             <SkeletonContainer />
@@ -69,6 +76,7 @@ const EducationComponent = () => {
 
 export default EducationComponent;
 
+// create component for containing skeletons for large cards
 const SkeletonContainer = () => {
   return (
     <>
