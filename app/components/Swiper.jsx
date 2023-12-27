@@ -10,18 +10,20 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import SwiperCard from "./SwiperCard";
 import NewsSwiperSlide from "./NewsSwiperSlide";
-import { SwiperSkeleton, CardSkeleton } from "./Skeleton";
+import { SwiperSkeleton } from "./Skeleton";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import { isOnline } from "../config/config";
 
 const SwiperSection = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // check for whether user is online or not
   const isOnline = navigator.onLine;
   
+  // function for getting top headlines of the day
   async function getTopHeadlines() {
+    // if user is online then send req to api
     if (isOnline) {
       try {
         const response = await getHeadlines();
@@ -31,6 +33,7 @@ const SwiperSection = () => {
         console.log(error);
       }
     } else {
+      // else getting data from firestore
       const querySnapshot = await getDocs(collection(db, "headlines"));
       setLoading(false);
       console.log("q", querySnapshot);
@@ -48,6 +51,7 @@ const SwiperSection = () => {
   return (
     <Container>
       <div className="mt-10 rounded-md">
+        {/* swiper component */}
         {loading ? (
           <SwiperSkeleton />
         ) : (

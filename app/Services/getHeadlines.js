@@ -3,11 +3,13 @@ import { key } from "../config/config";
 import { db } from "../firebaseConfig";
 import { httpAxios, topHeadlines } from "../httpAxios";
 
+// top healines of US
 export const getHeadlines = async () => {
   const response = await httpAxios.get(
     `/top-headlines?country=us&apiKey=${key}`
   );
 
+  // try to store in firestore -> so we can access it even we are offline
   if (response.data.articles) {
     try {
       response.data.articles.forEach(async (article) => {

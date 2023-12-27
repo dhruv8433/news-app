@@ -13,7 +13,9 @@ import noFav from "@/app/animation/no-fav.json";
 import Link from "next/link";
 
 const page = () => {
+  // select favs from redux
   const favorites = useSelector((state) => state.fav.items);
+
   return (
     <div>
       <Container>
@@ -28,7 +30,7 @@ const page = () => {
                 <GridContainerCards article={favorites} />
               ) : (
                 <div className="flex flex-col justify-center items-center h-[466px]">
-                  {/* If no notification found for a particular user */}
+                  {/* If no fav found for a particular user */}
                   <Lottie animationData={noFav} style={{ height: 300 }} />
                   <h1 className="text-xl">No Favorites Found!</h1>
                   <Link href={"/"}>

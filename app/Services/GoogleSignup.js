@@ -18,6 +18,8 @@ const googleSignIn = async ({ dispatch, setOpen }) => {
     };
     dispatch(UserLoginSuccess(userObject));
     const userResponse = await AddUser(userObject);
+    
+    // set cookies for middlware authentication
     Cookies.set("authenticated", true);
     console.log("login success");
     console.log(userResponse);
@@ -28,21 +30,9 @@ const googleSignIn = async ({ dispatch, setOpen }) => {
   }
 };
 
-const logOut = () => {
-  signOut(auth);
-};
-
 export async function handleSignIn({ dispatch, setOpen }) {
   try {
     await googleSignIn({ dispatch, setOpen });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function handleSignOut() {
-  try {
-    await logOut();
   } catch (error) {
     console.log(error);
   }

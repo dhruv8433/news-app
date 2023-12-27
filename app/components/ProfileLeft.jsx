@@ -4,11 +4,16 @@ import React from "react";
 import { Avatar, Divider } from "@mui/material";
 import ProfileRoutes from "./ProfileRoutes";
 import { useSelector } from "react-redux";
+import { title } from "../config/config";
 
 const ProfileLeft = () => {
+  // getting user detailes from redux like name, email and image
   const userDetails = useSelector((state) => state.auth.user);
 
+  document.title = `Profile | ${title}`;
+
   return (
+    // profile left section -> reusable
     <div className="user my-5 h-[600px] border rounded">
       <div className="usericon flex justify-center mt-4">
         <Avatar

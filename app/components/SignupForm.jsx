@@ -1,19 +1,20 @@
 "use client";
 
-import { Backdrop, IconButton, Modal } from "@mui/material";
+import { Backdrop, IconButton } from "@mui/material";
 import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import OtpContainer from "./OtpContainer";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import { onSignup } from "../Services/OnSignUp";
-import { RecaptchaVerifier, getAuth, onAuthStateChanged } from "firebase/auth";
+import { RecaptchaVerifier, getAuth } from "firebase/auth";
 import { CgSpinner } from "react-icons/cg";
 import { Google } from "@mui/icons-material";
 import { handleSignIn } from "../Services/GoogleSignup";
 import { useDispatch } from "react-redux";
 
 const SignupForm = ({ open, setOpen }) => {
+  // deefault user state
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -22,11 +23,13 @@ const SignupForm = ({ open, setOpen }) => {
     url: "https://c0.klipartz.com/pngpicture/136/22/gratis-png-perfil-de-usuario-computadora-iconos-chica-cliente-avatar.png",
   });
 
+  // states for open otp modal, setPhonenumber and loadings
   const [otpModel, setOtpModel] = useState(false);
   const [ph, setPh] = useState("");
   const [loading, setLoading] = useState(false);
   const [signupLoading, setSignupLoading] = useState(false);
 
+  // when user verify capture
   async function onCaptchVerify() {
     const auth = getAuth();
     if (!window.recaptchaVerifier) {
@@ -36,6 +39,7 @@ const SignupForm = ({ open, setOpen }) => {
         {
           size: "invisible",
           callback: (response) => {
+            // callback function signUp that contain all other stuff like ph, setphone etc...
             onSignup({
               setLoading,
               onCaptchVerify,
@@ -50,6 +54,7 @@ const SignupForm = ({ open, setOpen }) => {
     }
   }
 
+  // when user click sign up btn
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -63,6 +68,7 @@ const SignupForm = ({ open, setOpen }) => {
     );
   }
 
+  // dispatch for action handlers
   const dispatch = useDispatch();
 
   return (
@@ -135,16 +141,20 @@ const SignupForm = ({ open, setOpen }) => {
               <label className="block text-gray-700 text-sm font-medium mb-2">
                 Phone No.
               </label>
+
+              {/* This tag take phoneno from user and provide diffrent country code  */}
               <PhoneInput
                 country={"in"}
                 value={ph}
                 className="appearance-none border rounded w-full border-none"
                 onChange={setPh}
                 inputStyle={{ width: "240px" }}
-                // className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
+
+            {/* This empty div for cpature container */}
             <div id="recaptcha-container"></div>
+
             <div className="flex items-center justify-center">
               <button
                 onClick={() =>
@@ -165,6 +175,8 @@ const SignupForm = ({ open, setOpen }) => {
               </button>
             </div>
           </div>
+
+          {/* sign up with google */}
           <div className="flex items-center justify-center w-full">
             <button
               onClick={() => handleSignIn({ dispatch, setOpen })}
@@ -177,9 +189,10 @@ const SignupForm = ({ open, setOpen }) => {
           </div>
         </div>
       </Backdrop>
+
+      {/* This backgrop for otp verify */}
       <Backdrop open={otpModel}>
         <OtpContainer
-          // open={otpModel}
           user={userData}
           setOpen={setOtpModel}
           loading={loading}

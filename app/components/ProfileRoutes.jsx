@@ -17,8 +17,10 @@ import Cookies from "js-cookie";
 const ProfileRoutes = () => {
   const [logout, setLogout] = useState(false);
 
+  // dispatch to access action handlers
   const dispatch = useDispatch();
 
+  // logout functionality
   function logoutUser() {
     try {
       dispatch(UserLogoutSuccess());
@@ -32,6 +34,7 @@ const ProfileRoutes = () => {
   }
   return (
     <div>
+      {/* redirect to /profile where user can see their favs */}
       <Link href={"/profile"}>
         <div className="flex py-4 cursor-pointer hover:bg-red-100 ">
           <div className="icon pl-5">
@@ -43,6 +46,8 @@ const ProfileRoutes = () => {
         </div>
       </Link>
       <Divider />
+
+      {/* just for dummy notification */}
       <Link href={"/profile/notifications"}>
         <div className="flex py-4 cursor-pointer hover:bg-red-100">
           <div className="icon pl-5">
@@ -54,6 +59,8 @@ const ProfileRoutes = () => {
         </div>
       </Link>
       <Divider />
+      
+      {/* Danger Zone for like logout btn  */}
       <h1 className="ml-4 text-red-600 mt-4">Danger Zone</h1>
 
       <div
@@ -67,11 +74,12 @@ const ProfileRoutes = () => {
           <h1>Logout</h1>
         </div>
       </div>
+      {/* when user click logout btn this conformation popup open */}
       <Backdrop open={logout} onClose={() => setLogout(false)}>
         <div className=" p-2 rounded w-[400px] bg-white">
           <div className="heading flex w-full justify-between items-center">
             <h1 className="text-xl font-semibold">Logout Conformation</h1>
-            <IconButton>
+            <IconButton onClick={() => setLogout(false)}>
               <CloseRounded />
             </IconButton>
           </div>

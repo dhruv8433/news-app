@@ -18,6 +18,7 @@ const OtpContainer = ({ user, setOpen, loading, setLoading, phoneNo }) => {
 
   async function addUserData(user) {
     try {
+      // adding user to db
       const response = await AddUser(user);
       console.log(response);
       toast.success("user login successfully");
@@ -39,6 +40,7 @@ const OtpContainer = ({ user, setOpen, loading, setLoading, phoneNo }) => {
     window.confirmationResult
       .confirm(otp)
       .then((res) => {
+        // after otp verification success
         addUserData(user);
         dispatch(UserLoginSuccess(user));
         console.log(res);
@@ -94,6 +96,7 @@ const OtpContainer = ({ user, setOpen, loading, setLoading, phoneNo }) => {
           onClick={onOTPVerify}
           className=" w-full flex gap-1 items-center justify-center py-2.5 text-white rounded secondry-bg"
         >
+          {/* spinner for loading */}
           {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
           <span>Verify OTP</span>
         </button>

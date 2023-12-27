@@ -2,9 +2,9 @@ import { FavoriteBorder } from "@mui/icons-material";
 import { Box, Card, CardContent, CardMedia, IconButton } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import slugify from "slugify";
-import { removeFavorite } from "../action/action";
+import { addFavorite, removeFavorite } from "../action/action";
 import toast from "react-hot-toast";
 
 // reusable Horizontal Card
@@ -15,7 +15,7 @@ const HorizontalCard = ({ data, profilePage }) => {
 
   const dispatch = useDispatch();
 
-  // remove any favorites 
+  // remove any favorites
   function RemoveFromFav(art) {
     console.log("Removed", art);
     try {
@@ -25,6 +25,33 @@ const HorizontalCard = ({ data, profilePage }) => {
       console.log("Error", error);
     }
   }
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // select fav from redux
+  const favItems = useSelector((state) => state.fav.items);
+
+  // when user click like button
+  async function addToLike(data) {
+    if (isAuthenticated) {
+      try {
+        const isAlreadyLiked = favItems.some(
+          (item) => item.title === data.title
+        );
+        // check whether artiley is already in fav or not
+        if (isAlreadyLiked) {
+          toast.error("Article already in favorites");
+        } else {
+          const response = dispatch(addFavorite(data));
+          toast.success("Article added to favorites");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.error("Please login first");
+    }
+  }
+
   return (
     <div>
       {data.slice(0, 5).map((article) => (
@@ -34,7 +61,7 @@ const HorizontalCard = ({ data, profilePage }) => {
             <div
               className={`like absolute ml-2 mt-2 border bg-white rounded-full`}
             >
-              <IconButton>
+              <IconButton onClick={() => addToLike(article)}>
                 <FavoriteBorder />
               </IconButton>
             </div>

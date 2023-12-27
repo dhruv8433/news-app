@@ -136,7 +136,8 @@ const NavBar = () => {
               <SearchRounded sx={{ color: "white" }} />
             </IconButton>
 
-            {user ? (
+            {/* if user is authenticated than display avatar else sign up button */}
+            {isAuthenticated ? (
               <Link href={"/profile"}>
                 <Avatar
                   sx={{ height: 32, width: 32 }}

@@ -11,13 +11,14 @@ const favReducer = (state = initialState, action) => {
     case AddFav:
       return {
         ...state,
-        items: Array.isArray(state.items)
+        items: Array.isArray(state.items) // if state.items is array
           ? [...state.items, action.payload]
-          : [action.payload], // Ensure state.items is always an array
+          : [action.payload],
       };
     case RemoveFav:
       return {
         ...state,
+        // if we want to remove any item redux
         items: state.items.filter(
           (item) => item.title !== action.payload.title
         ),

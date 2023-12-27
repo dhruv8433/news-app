@@ -1,3 +1,5 @@
+// small cards
+
 "use client";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { Checkbox, IconButton } from "@mui/material";
@@ -27,34 +29,53 @@ const SwiperCard = ({ news, careerNews }) => {
 
 export default SwiperCard;
 
+// small card component
 const newsCard = (article) => {
   const saveDetails = (art) => {
     localStorage.setItem("details", JSON.stringify(art));
   };
 
+  // select fav from redux
   const favItems = useSelector((state) => state.fav.items);
   const dispatch = useDispatch();
 
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  // when user click like button
   async function addToLike(data) {
-    try {
-      const isAlreadyLiked = favItems.some((item) => item.title === data.title);
-      if (isAlreadyLiked) {
-        toast.error("Article already in favorites");
-      } else {
-        const response = dispatch(addFavorite(data));
-        toast.success("Article added to favorites");
+    if (isAuthenticated) {
+      try {
+        const isAlreadyLiked = favItems.some(
+          (item) => item.title === data.title
+        );
+        // check whether artiley is already in fav or not
+        if (isAlreadyLiked) {
+          toast.error("Article already in favorites");
+        } else {
+          const response = dispatch(addFavorite(data));
+          toast.success("Article added to favorites");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      toast.error("Please login first");
     }
   }
 
   return (
     <div className="px-3 py-1" key={article.url}>
       <div className={`like absolute ml-2 mt-2 border bg-white rounded-full`}>
+        {/* checkbox for like btn */}
         <Checkbox
           icon={<FavoriteBorder />}
-          checkedIcon={<Favorite />}
+          checkedIcon={
+            isAuthenticated ? (
+              <Favorite />
+            ) : (
+              <FavoriteBorder sx={{ color: "gray" }} />
+            )
+          }
           onClick={() => addToLike(article)}
         />
       </div>

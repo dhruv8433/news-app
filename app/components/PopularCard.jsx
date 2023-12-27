@@ -1,8 +1,13 @@
+// Large Article Cards
+
 import { FavoriteBorder } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import slugify from "slugify";
+import { addFavorite } from "../action/action";
 
 const PopularCard = ({ article, edu }) => {
   console.log("article", article);
@@ -11,14 +16,44 @@ const PopularCard = ({ article, edu }) => {
     localStorage.setItem("details", JSON.stringify(art));
   };
 
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // select fav from redux
+  const favItems = useSelector((state) => state.fav.items);
+
+  const dispatch = useDispatch();
+
+  // when user click like button
+  async function addToLike(data) {
+    if (isAuthenticated) {
+      try {
+        const isAlreadyLiked = favItems.some(
+          (item) => item.title === data.title
+        );
+        // check whether artiley is already in fav or not
+        if (isAlreadyLiked) {
+          toast.error("Article already in favorites");
+        } else {
+          const response = dispatch(addFavorite(data));
+          toast.success("Article added to favorites");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.error("Please login first");
+    }
+  }
+
   return (
     <div>
       <div className="px-3 py-1">
         <div className={`like absolute ml-2 mt-2 border bg-white rounded-full`}>
-          <IconButton>
+          <IconButton onClick={() => addToLike(article)}>
             <FavoriteBorder />
           </IconButton>
         </div>
+
+        {/* when we reuse in education component no need to trending tag */}
         {!edu ? (
           <div className="trending absolute bg-red-500 text-white p-1 rounded mt-3 ml-44">
             <p>trending</p>
@@ -26,8 +61,10 @@ const PopularCard = ({ article, edu }) => {
         ) : (
           ""
         )}
+
+        {/* link for detailed page */}
         <Link
-          href={"/categorys/" + slugify(article.title).toLowerCase()}
+          href={"/categorys/" + slugify(article.description).toLowerCase()}
           onClick={() => saveDetails(article)}
         >
           <>

@@ -1,5 +1,7 @@
+// api end-point
 export const api_endpoint = `https://newsapi.org/v2`;
 
+// our top category
 export const categorys = [
   "All",
   "Technology",
@@ -18,4 +20,8 @@ export const categorys = [
   "Politics",
 ];
 
+// key for api
 export const key = "4d58f1c61252483689f6308c5349572a";
+
+// title
+export const title = "ENews"

@@ -1,3 +1,5 @@
+// This is skeleton file for all website components
+
 import { Card, CardContent, CardMedia, Grid, Skeleton } from "@mui/material";
 import React from "react";
 

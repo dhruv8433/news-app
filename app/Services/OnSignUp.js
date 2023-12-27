@@ -21,6 +21,7 @@ export async function onSignup({
   const formatPh = "+" + ph;
   console.log("pghone", formatPh);
 
+  // if appverifier is done -> send otp to particular number
   signInWithPhoneNumber(auth, formatPh, appVerifier)
     .then((confirmationResult) => {
       window.confirmationResult = confirmationResult;
@@ -31,7 +32,6 @@ export async function onSignup({
       setOtpModel(true);
     })
     .catch((error) => {
-      console.log(error);
-      // setLoading(false);
+      console.log("error in sending otp", error);
     });
 }

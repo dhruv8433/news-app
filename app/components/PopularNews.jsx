@@ -13,13 +13,16 @@ const PopularNews = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // to check whether user is online or not
   const isOnline = navigator.onLine;
 
   async function getPopularNews() {
+    // if user is online then send req to api and store results in firestore
     if (isOnline) {
       try {
         const response = await getSpecificQueryNews("popular");
         if (response.articles) {
+          // storing results in popular collection
           try {
             response.articles.forEach(async (article) => {
               await addDoc(collection(db, "popular"), article);
@@ -34,7 +37,9 @@ const PopularNews = () => {
       } catch (error) {
         console.log(error);
       }
-    } else {
+    }
+    // else got data from firestore
+    else {
       const querySnapshot = await getDocs(collection(db, "popular"));
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
@@ -53,6 +58,7 @@ const PopularNews = () => {
         <Heading content={"Popular News"} />
         <div className="">
           <Grid container>
+            {/* skeleton if data is loading */}
             {loading ? (
               <SkeletonContainer />
             ) : (

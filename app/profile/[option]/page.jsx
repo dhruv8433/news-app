@@ -11,9 +11,11 @@ import Lottie from "lottie-react";
 import noNotification from "@/app/animation/no-notification-1.json";
 
 const page = () => {
+  // we getting parameters from params
   const { option } = useParams();
   console.log(option);
 
+  // if it's notification page than do this thing
   const route = useRouter();
   if (option === "notifications") {
     return (
@@ -35,6 +37,7 @@ const page = () => {
       </Container>
     );
   } else {
+    // else redirect back to profile page or if any user try to misspelled notification spelling redirect back
     route.push("/profile");
   }
 };
