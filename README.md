@@ -51,7 +51,7 @@ With redux state management, user is able to add favourites and remove it
 1. Clone the repository.
 2. Install dependencies using `npm install`.
 3. Configure Firebase credentials.
-4. Run the application using `npm start`.
+4. Run the application using `npm run dev`.
 
 ## Contributions
 
