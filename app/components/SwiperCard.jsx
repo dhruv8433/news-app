@@ -11,7 +11,7 @@ import { addFavorite } from "../action/action";
 import toast from "react-hot-toast";
 
 const SwiperCard = ({ news, careerNews }) => {
-  console.log("News Got...", news);
+
   return (
     <div>
       <div className="card">
