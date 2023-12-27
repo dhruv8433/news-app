@@ -10,7 +10,6 @@ import slugify from "slugify";
 import { addFavorite } from "../action/action";
 
 const PopularCard = ({ article, edu }) => {
-  console.log("article", article);
 
   const saveDetails = (art) => {
     localStorage.setItem("details", JSON.stringify(art));
