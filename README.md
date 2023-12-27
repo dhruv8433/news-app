@@ -52,3 +52,18 @@ With redux state management, user is able to add favourites and remove it
 2. Install dependencies using `npm install`.
 3. Configure Firebase credentials.
 4. Run the application using `npm run dev`.
+
+## Sample Images
+
+1. Home Page 
+![Screenshot 2023-12-27 080909](https://github.com/dhruv8433/news-app/assets/114583978/4bfe47d6-edf1-4f46-8473-4ecdc20bbcdd)
+
+2. Sign up or Login
+![image](https://github.com/dhruv8433/news-app/assets/114583978/9936f1f5-9c9b-4011-a1f8-a4888fcdbfe3)
+
+3. Detailed Page
+![image](https://github.com/dhruv8433/news-app/assets/114583978/bf9feeff-4428-4993-b573-9fbd5d9ea29b)
+
+4. Profile page
+![image](https://github.com/dhruv8433/news-app/assets/114583978/7f8932dc-1427-4c58-b301-bcd6d224c24e)
+
