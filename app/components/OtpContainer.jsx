@@ -79,7 +79,7 @@ const OtpContainer = ({ user, setOpen, loading, setLoading, phoneNo }) => {
         <label htmlFor="otp" className="font-small text-md text-center">
           Enter Verfication code send on
         </label>
-        <p className="text-secondary">{phone}</p>
+        <p className="text-secondary">{phoneNo}</p>
         <OtpInput
           value={otp}
           onChange={setOtp}
@@ -89,9 +89,6 @@ const OtpContainer = ({ user, setOpen, loading, setLoading, phoneNo }) => {
           autoFocus
           className="opt-container"
         ></OtpInput>
-        <button className=" w-full my-2 flex gap-1 items-center justify-center py-2.5 border rounded">
-          Resend OTP
-        </button>
         <button
           onClick={onOTPVerify}
           className=" w-full flex gap-1 items-center justify-center py-2.5 text-white rounded secondry-bg"
