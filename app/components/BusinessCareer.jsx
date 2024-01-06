@@ -28,16 +28,16 @@ const BusinessCareer = () => {
       try {
         const response = await getSpecificQueryNews("career");
         const business = await getSpecificQueryNews("business");
-        setData(response.articles);
+        setData(response.articles.results);
         setLoading(false);
-        setBusiness(business.articles);
+        setBusiness(business.articles.results);
         // response store in firestore so wher user is offline we got data from there
-        if (response.articles && business.articles) {
+        if (response.articles.results && business.articles.results) {
           try {
-            response.articles.forEach(async (article) => {
+            response.articles.results.forEach(async (article) => {
               await addDoc(collection(db, "career"), article);
             });
-            business.articles.forEach(async (article) => {
+            business.articles.results.forEach(async (article) => {
               await addDoc(collection(db, "business"), article);
             });
             console.log("Career & Business added to Firestore");
