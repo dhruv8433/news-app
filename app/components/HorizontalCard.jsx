@@ -83,7 +83,7 @@ const HorizontalCard = ({ data, profilePage }) => {
                   className="h-full"
                 >
                   <img
-                    src={article.urlToImage}
+                    src={article.image}
                     alt=""
                     className="object-cover h-full"
                     height={"100%"}

@@ -21,10 +21,10 @@ const PopularNews = () => {
     if (isOnline) {
       try {
         const response = await getSpecificQueryNews("popular");
-        if (response.articles) {
+        if (response.articles.results) {
           // storing results in popular collection
           try {
-            response.articles.forEach(async (article) => {
+            response.articles.results.map(async (article) => {
               await addDoc(collection(db, "popular"), article);
             });
             console.log("Popular added to Firestore");
@@ -32,7 +32,7 @@ const PopularNews = () => {
             console.log("error in store db", error);
           }
         }
-        setData(response.articles);
+        setData(response.articles.results);
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -64,12 +64,11 @@ const PopularNews = () => {
             ) : (
               data &&
               data.slice(0, 8).map((article) => {
-                if (article.title && article.urlToImage)
-                  return (
-                    <Grid item xs={12} md={3} key={article.url}>
-                      <PopularCard article={article} edu={false} />
-                    </Grid>
-                  );
+                return (
+                  <Grid item xs={12} md={3} key={article.url}>
+                    <PopularCard article={article} edu={false} />
+                  </Grid>
+                );
               })
             )}
           </Grid>

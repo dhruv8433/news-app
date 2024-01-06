@@ -63,14 +63,14 @@ const PopularCard = ({ article, edu }) => {
 
         {/* link for detailed page */}
         <Link
-          href={"/categorys/" + slugify(article.description).toLowerCase()}
+          href={"/categorys/" + slugify(article.title).toLowerCase()}
           onClick={() => saveDetails(article)}
         >
           <>
             <div className="h-[400px] rounded overflow-hidden">
               <img
                 className="object-cover h-full w-full hover:h-[420px]"
-                src={article.urlToImage}
+                src={article.image}
                 alt=""
               />
               <div className="bottom-0 -mt-20 left-0 right-0 p-4">
