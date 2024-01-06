@@ -22,7 +22,7 @@ const EducationComponent = () => {
       try {
         const education = await getSpecificQueryNews("education");
         // store the data in firestore so we got it when user is offline
-        if (education.articles) {
+        if (education.articles.results) {
           try {
             education.articles.forEach(async (article) => {
               await addDoc(collection(db, "edu"), article);
@@ -32,7 +32,7 @@ const EducationComponent = () => {
             console.log("error in store db", error);
           }
         }
-        setEducation(education.articles);
+        setEducation(education.articles.results);
         // disable skeleton
         setLoading(false);
       } catch (error) {
