@@ -3,8 +3,20 @@ import { httpAxios } from "../httpAxios";
 
 // specific news based on query string -> q
 export const getSpecificQueryNews = async (q) => {
-  const response = await httpAxios.get(
-    `/everything?q='${q}'&from=2023-12-01&sortBy=publishedAt&apiKey=${key}`
-  );
+  const response = await httpAxios.get(`/article/getArticles`, {
+    params: {
+      action: "getArticles",
+      keyword: q,
+      articlesPage: 1,
+      articlesCount: 100,
+      articlesSortBy: "date",
+      articlesSortByAsc: false,
+      articlesArticleBodyLen: -1,
+      resultType: "articles",
+      dataType: ["news", "pr"],
+      apiKey: key,
+      forceMaxDataTimeWindow: 31,
+    },
+  });
   return response.data;
 };

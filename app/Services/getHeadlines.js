@@ -22,9 +22,9 @@ export const getHeadlines = async () => {
   });
 
   // try to store in firestore -> so we can access it even we are offline
-  if (response.data.articles) {
+  if (response.data.articles.results) {
     try {
-      response.data.articles.forEach(async (article) => {
+      response.data.articles.results.forEach(async (article) => {
         await addDoc(collection(db, "headlines"), article);
       });
       console.log("Article added to Firestore");
