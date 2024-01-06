@@ -5,9 +5,21 @@ import { httpAxios, topHeadlines } from "../httpAxios";
 
 // top healines of US
 export const getHeadlines = async () => {
-  const response = await httpAxios.get(
-    `/top-headlines?country=us&apiKey=${key}`
-  );
+  const response = await httpAxios.get(`/article/getArticles`, {
+    params: {
+      action: "getArticles",
+      keyword: "Top Headlines",
+      articlesPage: 1,
+      articlesCount: 100,
+      articlesSortBy: "date",
+      articlesSortByAsc: false,
+      articlesArticleBodyLen: -1,
+      resultType: "articles",
+      dataType: ["news", "pr"],
+      apiKey: key,
+      forceMaxDataTimeWindow: 31,
+    },
+  });
 
   // try to store in firestore -> so we can access it even we are offline
   if (response.data.articles) {

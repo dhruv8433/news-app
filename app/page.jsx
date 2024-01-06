@@ -12,9 +12,9 @@ export default function Home() {
   return (
     <div>
       <Swiper />
-      <ListCategoryContainer />
-      <PopularNews />
-      <BusinessCareer />
+      {/* <ListCategoryContainer /> */}
+      {/* <PopularNews /> */}
+      {/* <BusinessCareer /> */}
     </div>
   );
 }

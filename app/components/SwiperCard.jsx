@@ -86,7 +86,7 @@ const newsCard = (article) => {
         <div className="h-[200px] rounded overflow-hidden">
           <img
             className="object-cover h-full w-full hover:h-[220px]"
-            src={article.urlToImage}
+            src={article.image}
             alt=""
           />
           <div className="bottom-0 -mt-20 left-0 right-0 p-4">

@@ -16,7 +16,7 @@ const NewsSwiperSlide = ({ article }) => {
       >
         <img
           className="object-cover h-full w-full"
-          src={article.urlToImage}
+          src={article.image}
           alt=""
         />
         <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4">
