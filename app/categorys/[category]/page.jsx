@@ -23,25 +23,26 @@ const page = () => {
         <div className="h-[500px]">
           <img
             className="object-cover h-full w-full rounded"
-            src={article.urlToImage}
+            src={article.image}
             alt=""
           />
         </div>
         <div className="my-3">
-          <p className="text-3xl font-bold">{article.title}</p>
-          <p className="text-xl">
-            Author:{" "}
-            <span className="font-bold p-1 bg-red-500 rounded text-white">
-              {article.author}
-            </span>{" "}
+          <p className="text-3xl font-bold text-red-500">{article.title}</p>
+          {/* <p className="text-xl">
+            Author:
+            {article.authors.map((auth) => (
+              <span key={auth.email} className="font-bold p-1 bg-red-500 rounded text-white">
+                auth.name
+              </span>
+            ))}
+          </p> */}
+          <p className="text-xl mt-2">
+            Published At : <span className="font-bold rounded p-1 text-white bg-red-500">{article.date}</span>{" "}
           </p>
-          <p className="text-xl">
-            Published At :{" "}
-            <span className="font-bold ">{article.publishedAt}</span>{" "}
-          </p>
-          <p className="text-sm">{article.description} </p>
+          <p className="text-sm italic mt-4">{article.body} </p>
 
-          <p>
+          <p className="mt-3">
             For more information visit :{" "}
             <a href={article.url} className="text-blue-500 underline">
               {article.url}
