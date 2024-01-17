@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const url = "http://localhost:3000";
+const url = "https://news-app-dhruv8433.vercel.app/";
 
 export async function middleware(request) {
   const isAuthenticate = request.cookies.get("authenticated")?.value === "true";
