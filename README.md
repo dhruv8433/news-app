@@ -66,4 +66,3 @@ With redux state management, user is able to add favourites and remove it
 
 4. Profile page
 ![image](https://github.com/dhruv8433/news-app/assets/114583978/7f8932dc-1427-4c58-b301-bcd6d224c24e)
-
