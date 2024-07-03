@@ -27,7 +27,6 @@ const SwiperSection = () => {
     if (isOnline) {
       try {
         const response = await getHeadlines();
-        console.log("response", response);
         setData(response);
         setLoading(false);
       } catch (error) {

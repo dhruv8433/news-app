@@ -9,11 +9,10 @@ const NewsSwiperSlide = ({ article }) => {
     localStorage.setItem("details", JSON.stringify(art));
   };
 
-  console.log("img", article.media[0]);
   return (
     <div className="h-full">
       <Link
-        href={"/categorys/" + slugify(article.title).toLowerCase()}
+        href={"/categorys/" + slugify(article.abstract).toLowerCase()}
         onClick={() => saveDetails(article)}
       >
         <img
@@ -22,7 +21,7 @@ const NewsSwiperSlide = ({ article }) => {
           alt=""
         />
         <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4">
-          <h1 className="text-3xl text-white">{article.title}</h1>
+          <h1 className="text-3xl text-white">{article.abstract}</h1>
         </div>
       </Link>
     </div>

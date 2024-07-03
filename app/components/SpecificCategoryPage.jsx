@@ -20,7 +20,7 @@ const SpecificCategoryPage = ({ query }) => {
     try {
       // send request to particular query
       const response = await getSpecificQueryNews(query);
-      setData(response.articles.results);
+      setData(response.docs);
       setLoading(false);
     } catch (error) {
       console.log(error);

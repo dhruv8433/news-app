@@ -43,6 +43,11 @@ const PopularCard = ({ article, edu }) => {
     }
   }
 
+   // Extracting the image URL from the multimedia array
+   const imageUrl = article.multimedia && article.multimedia.length > 0
+   ? "https://www.nytimes.com/" + article.multimedia[0].url
+   : "";
+
   return (
     <div>
       <div className="px-3 py-1">
@@ -63,18 +68,18 @@ const PopularCard = ({ article, edu }) => {
 
         {/* link for detailed page */}
         <Link
-          href={"/categorys/" + slugify(article.title).toLowerCase()}
+          href={"/categorys/" + slugify(article.abstract).toLowerCase()}
           onClick={() => saveDetails(article)}
         >
           <>
             <div className="h-[400px] rounded overflow-hidden">
               <img
                 className="object-cover h-full w-full hover:h-[420px]"
-                src={article.image}
-                alt=""
+                src={imageUrl}
+                alt={article.lead_paragraph}
               />
               <div className="bottom-0 -mt-20 left-0 right-0 p-4">
-                <p className="text-sm text-white">{article.title}</p>
+                <p className="text-sm font-semibold text-white">{article.abstract}</p>
               </div>
             </div>
           </>

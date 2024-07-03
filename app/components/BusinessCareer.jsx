@@ -26,18 +26,23 @@ const BusinessCareer = () => {
     // if user is online then send request to api
     if (isOnlined) {
       try {
+        console.log("inside try")
         const response = await getSpecificQueryNews("career");
         const business = await getSpecificQueryNews("business");
-        setData(response.articles.results);
+        setData(response.docs);
+        console.log("response got",response)
         setLoading(false);
-        setBusiness(business.articles.results);
+
+        console.log("business", business);
+        console.log("response", response);
+        setBusiness(business.docs);
         // response store in firestore so wher user is offline we got data from there
-        if (response.articles.results && business.articles.results) {
+        if (response.docs && business.docs) {
           try {
-            response.articles.results.forEach(async (article) => {
+            response.docs.forEach(async (article) => {
               await addDoc(collection(db, "career"), article);
             });
-            business.articles.results.forEach(async (article) => {
+            business.docs.forEach(async (article) => {
               await addDoc(collection(db, "business"), article);
             });
             console.log("Career & Business added to Firestore");
