@@ -8,6 +8,8 @@ const NewsSwiperSlide = ({ article }) => {
   const saveDetails = (art) => {
     localStorage.setItem("details", JSON.stringify(art));
   };
+
+  console.log("img", article.media[0]);
   return (
     <div className="h-full">
       <Link
@@ -16,7 +18,7 @@ const NewsSwiperSlide = ({ article }) => {
       >
         <img
           className="object-cover h-full w-full"
-          src={article.image}
+          src={article.media[0] ? article.media[0]["media-metadata"][2].url: ""}
           alt=""
         />
         <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4">

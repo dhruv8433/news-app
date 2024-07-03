@@ -5,33 +5,23 @@ import { httpAxios, topHeadlines } from "../httpAxios";
 
 // top healines of US
 export const getHeadlines = async () => {
-  const response = await httpAxios.get(`/article/getArticles`, {
-    params: {
-      action: "getArticles",
-      keyword: "Top Headlines",
-      articlesPage: 1,
-      articlesCount: 100,
-      articlesSortBy: "date",
-      articlesSortByAsc: false,
-      articlesArticleBodyLen: -1,
-      resultType: "articles",
-      dataType: ["news", "pr"],
-      apiKey: key,
-      forceMaxDataTimeWindow: 31,
-    },
-  });
+  const response = await httpAxios.get(
+    `/mostpopular/v2/emailed/7.json?api-key=${key}`
+  );
+
+  console.log("custom response",response)
 
   // try to store in firestore -> so we can access it even we are offline
-  if (response.data.articles.results) {
+  if (response.data) {
     try {
-      response.data.articles.results.forEach(async (article) => {
-        await addDoc(collection(db, "headlines"), article);
-      });
+      // response.data.forEach(async (article) => {
+      //   await addDoc(collection(db, "headlines"), article);
+      // });
       console.log("Article added to Firestore");
     } catch (error) {
       console.log("error in store db", error);
     }
   }
 
-  return response.data;
+  return response.data.results;
 };
