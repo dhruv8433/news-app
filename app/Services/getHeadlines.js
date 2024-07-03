@@ -9,8 +9,6 @@ export const getHeadlines = async () => {
     `/mostpopular/v2/emailed/7.json?api-key=${key}`
   );
 
-  console.log("custom response",response)
-
   // try to store in firestore -> so we can access it even we are offline
   if (response.data) {
     try {
