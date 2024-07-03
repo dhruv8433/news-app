@@ -56,6 +56,8 @@ const HorizontalCard = ({ data, profilePage }) => {
   ? "https://www.nytimes.com/" + data.multimedia[0].url
   : "";
 
+  console.log("image url", imageUrl);
+
   return (
     <div>
       {data.slice(0, 5).map((article) => {
