@@ -72,7 +72,7 @@ const HorizontalCard = ({ data, profilePage }) => {
             )}
             <Link
               key={article.title}
-              href={"/categorys/" + slugify(article.title).toLowerCase()}
+              href={"/categorys/" + slugify(article.abstract).toLowerCase()}
               onClick={() => saveDetails(article)}
             >
               <Card
