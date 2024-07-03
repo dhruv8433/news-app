@@ -52,8 +52,8 @@ const HorizontalCard = ({ data, profilePage }) => {
     }
   }
 
-  const imageUrl = article.multimedia && article.multimedia.length > 0
-  ? "https://www.nytimes.com/" + article.multimedia[0].url
+  const imageUrl = data.multimedia && data.multimedia.length > 0
+  ? "https://www.nytimes.com/" + data.multimedia[0].url
   : "";
 
   return (
