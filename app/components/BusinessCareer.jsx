@@ -29,14 +29,15 @@ const BusinessCareer = () => {
         console.log("inside try")
         const response = await getSpecificQueryNews("career");
         const business = await getSpecificQueryNews("business");
-        setData(response.docs);
-        console.log("response got",response)
-        setLoading(false);
-
+        
+        console.log("response got", response.docs)
         console.log("business", business);
         console.log("response", response);
+
+        setData(response.docs);
         setBusiness(business.docs);
-        // response store in firestore so wher user is offline we got data from there
+
+        // response store in firestore so when user is offline we got data from there
         if (response.docs && business.docs) {
           try {
             response.docs.forEach(async (article) => {
@@ -50,23 +51,30 @@ const BusinessCareer = () => {
             console.log("error in store db", error);
           }
         }
+
+        setLoading(false);
         setBusinessLoading(false);
       } catch (error) {
         console.log(error);
       }
-    }
-    // else getting data from cache(firestore)
-    else {
+    } else {
+      // else getting data from cache(firestore)
       const careerData = await getDocs(collection(db, "career"));
+      const careerDocs = [];
       careerData.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
-        data.push(doc.data());
+        careerDocs.push(doc.data());
       });
+      setData(careerDocs);
+
       const businessData = await getDocs(collection(db, "business"));
+      const businessDocs = [];
       businessData.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
-        business.push(doc.data());
+        businessDocs.push(doc.data());
       });
+      setBusiness(businessDocs);
+
       setLoading(false);
       setBusinessLoading(false);
     }
