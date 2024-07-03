@@ -56,10 +56,6 @@ const HorizontalCard = ({ data, profilePage }) => {
     <div>
       {data.slice(0, 5).map((article) => {
         // to display ... after certain characters
-        const truncatedBody =
-          article.body.length > 300
-            ? `${article.lead_paragraph.substring(0, 300)}...`
-            : article.body;
         return (
           <>
             {/* if it doesn't a profile page than only this add fav btn visible */}
@@ -103,7 +99,7 @@ const HorizontalCard = ({ data, profilePage }) => {
                       {article.abstract}
                     </h1>
                     <h1 className="hover:text-red-300 text-sm">
-                      {truncatedBody}
+                      {article.lead_paragraph}
                     </h1>
                     <h1 className="hover:text-red-400 text-sm">
                       Date: {article.pub_date}

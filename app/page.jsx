@@ -14,7 +14,7 @@ export default function Home() {
       <Swiper />
       <ListCategoryContainer />
       <PopularNews />
-      {/* <BusinessCareer /> */}
+      <BusinessCareer />
     </div>
   );
 }
