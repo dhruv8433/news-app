@@ -37,7 +37,7 @@ const HorizontalCard = ({ data, profilePage }) => {
         const isAlreadyLiked = favItems.some(
           (item) => item.title === data.title
         );
-        // check whether artiley is already in fav or not
+        // check whether article is already in fav or not
         if (isAlreadyLiked) {
           toast.error("Article already in favorites");
         } else {
@@ -56,17 +56,15 @@ const HorizontalCard = ({ data, profilePage }) => {
     <div>
       {data.slice(0, 5).map((article) => {
         // to display ... after certain characters
-        const truncatedBody =
-          article.body.length > 300
-            ? `${article.lead_paragraph.substring(0, 300)}...`
-            : article.body;
+        const imageUrl = article.multimedia && article.multimedia.length > 0
+          ? "https://www.nytimes.com/" + article.multimedia[0].url
+          : "";
+
         return (
-          <>
+          <div key={article.title}>
             {/* if it doesn't a profile page than only this add fav btn visible */}
             {!profilePage ? (
-              <div
-                className={`like absolute ml-2 mt-2 border bg-white rounded-full`}
-              >
+              <div className="like absolute ml-2 mt-2 border bg-white rounded-full">
                 <IconButton onClick={() => addToLike(article)}>
                   <FavoriteBorder />
                 </IconButton>
@@ -75,8 +73,7 @@ const HorizontalCard = ({ data, profilePage }) => {
               ""
             )}
             <Link
-              key={article.title}
-              href={"/categorys/" + slugify(article.title).toLowerCase()}
+              href={"/categorys/" + slugify(article.abstract).toLowerCase()}
               onClick={() => saveDetails(article)}
             >
               <Card
@@ -89,7 +86,7 @@ const HorizontalCard = ({ data, profilePage }) => {
                     className="h-full"
                   >
                     <img
-                      src={article.image}
+                      src={imageUrl}
                       alt=""
                       className="object-cover h-full"
                       height={"100%"}
@@ -103,13 +100,13 @@ const HorizontalCard = ({ data, profilePage }) => {
                       {article.abstract}
                     </h1>
                     <h1 className="hover:text-red-300 text-sm">
-                      {truncatedBody}
+                      {article.lead_paragraph}
                     </h1>
                     <h1 className="hover:text-red-400 text-sm">
                       Date: {article.pub_date}
                     </h1>
                     {article.author ? (
-                      <h1 className="text-sm mt-1 ">
+                      <h1 className="text-sm mt-1">
                         Discovered By:{" "}
                         <span className="bg-red-500 w-max p-1 hover:text-white rounded">
                           {article.news_desk}
@@ -122,7 +119,7 @@ const HorizontalCard = ({ data, profilePage }) => {
                 </CardContent>
               </Card>
             </Link>
-            {/* inside profile page we give remove fav btn that remove any article from favoritesF */}
+            {/* inside profile page we give remove fav btn that remove any article from favorites */}
             {profilePage ? (
               <div className="flex justify-end mr-2 -mt-14">
                 <button
@@ -135,7 +132,7 @@ const HorizontalCard = ({ data, profilePage }) => {
             ) : (
               ""
             )}
-          </>
+          </div>
         );
       })}
     </div>

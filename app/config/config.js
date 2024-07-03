@@ -21,7 +21,7 @@ export const categorys = [
 ];
 
 // key for api
-export const key = "g0KmbShfkmkI0Jy22BG0OH7A1p0w0bxO";
+export const key = "x1GDJ2YLEA54gjCw0NVcG0hmNWUKmxJ0";
 
 // title
 export const title = "ENews"
