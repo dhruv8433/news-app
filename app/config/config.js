@@ -1,5 +1,5 @@
 // api end-point
-export const api_endpoint = `https://newsapi.ai/api/v1`;
+export const api_endpoint = `https://api.nytimes.com/svc`;
 
 // our top category
 export const categorys = [
@@ -21,7 +21,7 @@ export const categorys = [
 ];
 
 // key for api
-export const key = "7f5fd96a-2f8e-4ac6-9187-cb0e6efc6109";
+export const key = "rANKrRljqAQrCZdtkkuyDz6n4aT3WHAG";
 
 // title
 export const title = "ENews"
