@@ -52,6 +52,10 @@ const HorizontalCard = ({ data, profilePage }) => {
     }
   }
 
+  const imageUrl = article.multimedia && article.multimedia.length > 0
+  ? "https://www.nytimes.com/" + article.multimedia[0].url
+  : "";
+
   return (
     <div>
       {data.slice(0, 5).map((article) => {
@@ -85,7 +89,7 @@ const HorizontalCard = ({ data, profilePage }) => {
                     className="h-full"
                   >
                     <img
-                      src={article.image}
+                      src={imageUrl}
                       alt=""
                       className="object-cover h-full"
                       height={"100%"}
