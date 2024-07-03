@@ -9,6 +9,10 @@ const NewsSwiperSlide = ({ article }) => {
     localStorage.setItem("details", JSON.stringify(art));
   };
 
+  const imageUrl = article.multimedia && article.multimedia.length > 0
+  ? "https://www.nytimes.com/" + article.multimedia[0].url
+  : "";
+
   return (
     <div className="h-full">
       <Link
@@ -17,7 +21,7 @@ const NewsSwiperSlide = ({ article }) => {
       >
         <img
           className="object-cover h-full w-full"
-          src={article.media[0] ? article.media[0]["media-metadata"][2].url: ""}
+          src={imageUrl}
           alt=""
         />
         <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4">

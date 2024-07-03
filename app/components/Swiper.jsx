@@ -13,6 +13,7 @@ import NewsSwiperSlide from "./NewsSwiperSlide";
 import { SwiperSkeleton } from "./Skeleton";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import { getSpecificQueryNews } from "../Services/getAllNews";
 
 const SwiperSection = () => {
   const [data, setData] = useState([]);
@@ -26,8 +27,8 @@ const SwiperSection = () => {
     // if user is online then send req to api
     if (isOnline) {
       try {
-        const response = await getHeadlines();
-        setData(response);
+        const response = await getSpecificQueryNews("trending");
+        setData(response.docs);
         setLoading(false);
       } catch (error) {
         console.log(error);

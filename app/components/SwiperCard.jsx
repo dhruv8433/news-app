@@ -63,6 +63,10 @@ const newsCard = (article) => {
     }
   }
 
+  const imageUrl = article.multimedia && article.multimedia.length > 0
+  ? "https://www.nytimes.com/" + article.multimedia[0].url
+  : "";
+
   return (
     <div className="px-3 py-1" key={article.url}>
       <div className={`like absolute ml-2 mt-2 border bg-white rounded-full`}>
@@ -86,7 +90,7 @@ const newsCard = (article) => {
         <div className="h-[200px] rounded overflow-hidden">
           <img
             className="object-cover h-full w-full hover:h-[220px]"
-            src={article.media[0] ? article.media[0]["media-metadata"][2].url: ""}
+            src={imageUrl}
             alt=""
           />
           <div className="bottom-0 -mt-20 left-0 right-0 p-4">
