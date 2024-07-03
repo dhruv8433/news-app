@@ -21,10 +21,10 @@ const PopularNews = () => {
     if (isOnline) {
       try {
         const response = await getSpecificQueryNews("popular");
-        if (response.articles.results) {
+        if (response) {1
           // storing results in popular collection
           try {
-            response.articles.results.map(async (article) => {
+            response.docs.map(async (article) => {
               await addDoc(collection(db, "popular"), article);
             });
             console.log("Popular added to Firestore");
@@ -32,7 +32,7 @@ const PopularNews = () => {
             console.log("error in store db", error);
           }
         }
-        setData(response.articles.results);
+        setData(response.docs);
         setLoading(false);
       } catch (error) {
         console.log(error);

@@ -80,17 +80,17 @@ const newsCard = (article) => {
         />
       </div>
       <Link
-        href={"/categorys/" + slugify(article.title).toLowerCase()}
+        href={"/categorys/" + slugify(article.abstract).toLowerCase()}
         onClick={() => saveDetails(article)}
       >
         <div className="h-[200px] rounded overflow-hidden">
           <img
             className="object-cover h-full w-full hover:h-[220px]"
-            src={article.image}
+            src={article.media[0] ? article.media[0]["media-metadata"][2].url: ""}
             alt=""
           />
           <div className="bottom-0 -mt-20 left-0 right-0 p-4">
-            <p className="text-sm text-white">{article.title}</p>
+            <p className="text-sm text-white">{article.abstract}</p>
           </div>
         </div>
       </Link>

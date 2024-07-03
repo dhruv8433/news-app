@@ -41,7 +41,7 @@ const HorizontalCard = ({ data, profilePage }) => {
         if (isAlreadyLiked) {
           toast.error("Article already in favorites");
         } else {
-          const response = dispatch(addFavorite(data));
+          dispatch(addFavorite(data));
           toast.success("Article added to favorites");
         }
       } catch (error) {
@@ -58,7 +58,7 @@ const HorizontalCard = ({ data, profilePage }) => {
         // to display ... after certain characters
         const truncatedBody =
           article.body.length > 300
-            ? `${article.body.substring(0, 300)}...`
+            ? `${article.lead_paragraph.substring(0, 300)}...`
             : article.body;
         return (
           <>
@@ -100,19 +100,19 @@ const HorizontalCard = ({ data, profilePage }) => {
                 <CardContent className="w-full">
                   <div className="text-start ml-3">
                     <h1 className="hover:text-red-500 font-semibold">
-                      {article.title}
+                      {article.abstract}
                     </h1>
                     <h1 className="hover:text-red-300 text-sm">
                       {truncatedBody}
                     </h1>
                     <h1 className="hover:text-red-400 text-sm">
-                      Date: {article.date}
+                      Date: {article.pub_date}
                     </h1>
                     {article.author ? (
                       <h1 className="text-sm mt-1 ">
                         Discovered By:{" "}
                         <span className="bg-red-500 w-max p-1 hover:text-white rounded">
-                          {article.author}
+                          {article.news_desk}
                         </span>
                       </h1>
                     ) : (
